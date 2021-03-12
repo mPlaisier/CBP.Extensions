@@ -11,7 +11,7 @@ namespace CBP.Extensions
         /// <returns></returns>
         public static string DefaultFormat(this decimal amount)
         {
-            return String.Format("€ {0:0.00}", amount);
+            return string.Format("€ {0:0,0.00}", amount);
         }
     }
 }

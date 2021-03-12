@@ -42,7 +42,7 @@ namespace CBP.Extensions
         public static void ForEach<T>(this IEnumerable<T> @enumerable, Action<T> mapFunction)
         {
             if (enumerable.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(enumerable));
+                throw new ArgumentNullException(nameof(enumerable), "enumerable should not be null or empty.");
 
             if (enumerable is List<T> collection)
                 collection.ForEach(mapFunction);
