@@ -46,5 +46,49 @@ namespace CBP.Extensions.UnitTests
 
             formatted.Should().Contain(",", Exactly.Times(numberOfSeparators));
         }
+
+        [Theory]
+        [InlineData(100)]
+        [InlineData(-100)]
+        [InlineData(0)]
+        [InlineData(10000)]
+        [InlineData(125.25)]
+        [InlineData(-126.4)]
+        public void DefaultNegativeFormatShouldAlwaysBeNegative(decimal amount)
+        {
+            var formatted = amount.DefaultNegativeFormat();
+
+            formatted.Should().Contain("-", Exactly.Once());
+        }
+
+        [Theory]
+        [InlineData(100)]
+        [InlineData(-100)]
+        [InlineData(0)]
+        [InlineData(10000)]
+        [InlineData(-10000)]
+        [InlineData(125.25)]
+        [InlineData(-126.4)]
+        public void DefaultFormatShouldAlwaysBeNegative(decimal amount)
+        {
+            var formatted = amount.DefaultFormat(true);
+
+            formatted.Should().Contain("-", Exactly.Once());
+        }
+
+        [Theory]
+        [InlineData(100)]
+        [InlineData(-100)]
+        [InlineData(0)]
+        [InlineData(10000)]
+        [InlineData(-10000)]
+        [InlineData(125.25)]
+        [InlineData(-126.4)]
+        public void DefaultFormatShouldAlwaysBePositive(decimal amount)
+        {
+            var formatted = amount.DefaultFormat(false);
+
+            formatted.Should().NotContain("-");
+        }
     }
 }
