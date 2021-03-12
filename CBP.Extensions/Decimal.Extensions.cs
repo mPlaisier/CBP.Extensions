@@ -11,7 +11,7 @@ namespace CBP.Extensions
         /// <returns></returns>
         public static string DefaultFormat(this decimal amount)
         {
-            return string.Format("€ {0:0,0.00}", amount);
+            return "€ " + amount.ToString("#,0.00");
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace CBP.Extensions
         /// <returns></returns>
         public static string DefaultNegativeFormat(this decimal amount)
         {
-            return string.Format("€ -{0:0,0.00}", Math.Abs(amount));
+            return "€ -" + Math.Abs(amount).ToString("#,0.00");
         }
     }
 }

@@ -90,5 +90,38 @@ namespace CBP.Extensions.UnitTests
 
             formatted.Should().NotContain("-");
         }
+
+        [Theory]
+        [InlineData(100, 9)]
+        [InlineData(-100, 9)]
+        [InlineData(0, 7)]
+        [InlineData(10000, 12)]
+        [InlineData(-10000, 12)]
+        [InlineData(125.25, 9)]
+        [InlineData(-126.4, 9)]
+        [InlineData(8.5, 7)]
+        [InlineData(4.57, 7)]
+        public void DefaultFormatShouldHaveCorrectNumberOfCharactersForNegativeAmount(decimal amount, int characters)
+        {
+            var formatted = amount.DefaultFormat(true);
+
+            formatted.Should().HaveLength(characters);
+        }
+
+        [Theory]
+        [InlineData(100, 8)]
+        [InlineData(-100, 8)]
+        [InlineData(0, 6)]
+        [InlineData(10000, 11)]
+        [InlineData(-10000, 11)]
+        [InlineData(125.25, 8)]
+        [InlineData(-126.4, 8)]
+        [InlineData(8.5, 6)]
+        public void DefaultFormatShouldHaveCorrectNumberOfCharactersForPositiveAmount(decimal amount, int characters)
+        {
+            var formatted = amount.DefaultFormat(false);
+
+            formatted.Should().HaveLength(characters);
+        }
     }
 }
