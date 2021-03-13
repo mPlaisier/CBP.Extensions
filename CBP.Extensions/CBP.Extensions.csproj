@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <PackOnBuild>true</PackOnBuild>
     <PackageId>cbp-extensions</PackageId>
     <PackageVersion>1.3</PackageVersion>
     <Authors>Mattias Plaisier</Authors>
