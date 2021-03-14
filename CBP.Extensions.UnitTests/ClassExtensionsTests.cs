@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Xunit;
 
 namespace CBP.Extensions.UnitTests
@@ -25,6 +26,24 @@ namespace CBP.Extensions.UnitTests
             var result = obj.IsNotNull();
 
             result.Should().Be(isNull);
+        }
+
+        [Fact]
+        public void ThrowIfNullShouldThrowExceptionIfNull()
+        {
+            string input = null;
+
+            Action act = () => input.ThrowIfNull();
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void ThrowIfNullShouldNotThrowExceptionIfNull()
+        {
+            string input = "";
+
+            Action act = () => input.ThrowIfNull();
+            act.Should().NotThrow<ArgumentNullException>();
         }
     }
 }
