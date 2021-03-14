@@ -3,10 +3,10 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<PackageId>cbp-extensions</PackageId>
-		<PackageVersion>1.4</PackageVersion>
+		<PackageVersion>1.5</PackageVersion>
 		<Authors>Mattias Plaisier</Authors>
 		<Description>C# Extensions</Description>
-		<ReleaseVersion>1.4</ReleaseVersion>
+		<ReleaseVersion>1.5</ReleaseVersion>
 		<RepositoryUrl>https://github.com/mPlaisier/CBP.Extensions.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
