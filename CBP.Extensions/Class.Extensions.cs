@@ -24,5 +24,18 @@ namespace CBP.Extensions
         {
             return obj != null;
         }
+
+        /// <summary>
+        /// Throw ArgumentNullException if object is null
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T ThrowIfNull<T>(this T obj)
+        {
+            if (obj == null)
+                throw new ArgumentNullException(nameof(obj));
+            return obj;
+        }
     }
 }
