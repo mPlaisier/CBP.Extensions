@@ -42,7 +42,54 @@ namespace CBP.Extensions.UnitTests
             indexString.Should().Be(3);
         }
 
+        [Fact]
+        public void FindIndexReturnsCorrectValueIfItemNotFound()
+        {
+            Collection<object> list = GetMixedObjectCollection();
 
+            var indexDecimal = list.FindIndex(x => x is decimal);
+
+            indexDecimal.Should().Be(-1);
+        }
+
+        [Fact]
+        public void CollectionInsertRangeShouldThrowErrorIfNull()
+        {
+            Collection<object> listNull = null;
+            var listEmpty = new Collection<object>();
+
+            Action actWithCollectionNull = () => listNull.InsertRange(0,new Collection<object>());
+            Action actWithEnumerableNull = () => listEmpty.InsertRange(0,null);
+           
+            actWithCollectionNull.Should().Throw<ArgumentNullException>();
+            actWithEnumerableNull.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void ObservableCollectionInsertRangeShouldThrowErrorIfNull()
+        {
+            ObservableCollection<object> listNull = null;
+            var listEmpty = new ObservableCollection<object>();
+
+            Action actWithCollectionNull = () => listNull.InsertRange(0, new ObservableCollection<object>());
+            Action actWithenumerableNull = () => listEmpty.InsertRange(0, null);
+
+            actWithCollectionNull.Should().Throw<ArgumentNullException>();
+            actWithenumerableNull.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void CollectioRemoveRangeShouldThrowErrorIfNull()
+        {
+            ObservableCollection<object> listNull = null;
+            ObservableCollection<object> listEmpty = new ObservableCollection<object>();
+
+            Action actWithCollectionNull = () => listNull.RemoveRange(new ObservableCollection<object>());
+            Action actWithenumerableNull = () => listEmpty.RemoveRange(null);
+
+            actWithCollectionNull.Should().Throw<ArgumentNullException>();
+            actWithenumerableNull.Should().Throw<ArgumentNullException>();
+        }
 
         #region Data
 

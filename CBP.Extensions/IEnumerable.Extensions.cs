@@ -40,6 +40,12 @@ namespace CBP.Extensions
             return enumerable is ICollection<T> collection ? collection.Count != 0 : enumerable.Any();
         }
 
+        /// <summary>
+        /// Execute <paramref name="mapFunction"/> for each item in <paramref name="enumerable"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="mapFunction"></param>
         public static void ForEach<T>(this IEnumerable<T> @enumerable, Action<T> mapFunction)
         {
             if (enumerable.IsNullOrEmpty())
@@ -88,6 +94,17 @@ namespace CBP.Extensions
         public static int Count<T, S>(this IEnumerable<T> enumerable, Func<S, bool> predicate)
         {
             return enumerable.OfType<S>().Count(predicate);
+        }
+
+        /// <summary>
+        /// Returns the first element found with <paramref name="predicate"/> in <paramref name="enumerable"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static T FirstOrNull<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate) where T : class
+        {
+            return enumerable.DefaultIfEmpty(null).FirstOrDefault(predicate);
         }
     }
 }

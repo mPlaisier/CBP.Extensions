@@ -14,12 +14,12 @@ namespace CBP.Extensions
         /// <param name="collection"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static int FindIndex<T>(this Collection<T> collection, Func<T, bool> predicate)
+        public static int FindIndex<T>(this Collection<T> collection, Func<T, bool> predicate) where T : class
         {
             if (collection.IsNullOrEmpty())
                 return -1;
 
-            var item = collection.FirstOrDefault(predicate);
+            var item =  collection.FirstOrNull(predicate);
             return collection.IndexOf(item);
         }
 
@@ -32,6 +32,11 @@ namespace CBP.Extensions
         /// <param name="enumerable"></param>
         public static void InsertRange<T>(this Collection<T> collection, int index, IEnumerable<T> enumerable)
         {
+            if (collection.IsNull())
+                throw new ArgumentNullException(nameof(collection));
+            if (enumerable.IsNull())
+                throw new ArgumentNullException(nameof(enumerable));
+
             int currentIndex = index;
             var changedItems = collection is List<T> ? (List<T>)enumerable : new List<T>(enumerable);
             foreach (var i in changedItems)
@@ -50,6 +55,11 @@ namespace CBP.Extensions
         /// <param name="enumerable"></param>
         public static void InsertRange<T>(this ObservableCollection<T> collection, int index, IEnumerable<T> enumerable)
         {
+            if (collection.IsNull())
+                throw new ArgumentNullException(nameof(collection));
+            if (enumerable.IsNull())
+                throw new ArgumentNullException(nameof(enumerable));
+
             int currentIndex = index;
             var changedItems = collection is List<T> ? (List<T>)enumerable : new List<T>(enumerable);
             foreach (var i in changedItems)
@@ -67,7 +77,9 @@ namespace CBP.Extensions
         /// <param name="enumerable"></param>
         public static void RemoveRange<T>(this Collection<T> collection, IEnumerable<T> enumerable)
         {
-            if (enumerable.IsNullOrEmpty())
+            if (collection.IsNull())
+                throw new ArgumentNullException(nameof(collection));
+            if (enumerable.IsNull())
                 throw new ArgumentNullException(nameof(enumerable));
 
             //fix error when enumerable is from the Collection
