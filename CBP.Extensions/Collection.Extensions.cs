@@ -19,7 +19,7 @@ namespace CBP.Extensions
             if (collection.IsNullOrEmpty())
                 return -1;
 
-            var item =  collection.FirstOrNull(predicate);
+            var item = collection.FirstOrNull(predicate);
             return collection.IndexOf(item);
         }
 
@@ -61,7 +61,7 @@ namespace CBP.Extensions
                 throw new ArgumentNullException(nameof(enumerable));
 
             int currentIndex = index;
-            var changedItems = collection is List<T> ? (List<T>)enumerable : new List<T>(enumerable);
+            var changedItems = new List<T>(enumerable);
             foreach (var i in changedItems)
             {
                 collection.Insert(currentIndex, i);

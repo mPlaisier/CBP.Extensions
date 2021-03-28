@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using FluentAssertions;
 using Moq;
@@ -58,9 +59,9 @@ namespace CBP.Extensions.UnitTests
             Collection<object> listNull = null;
             var listEmpty = new Collection<object>();
 
-            Action actWithCollectionNull = () => listNull.InsertRange(0,new Collection<object>());
-            Action actWithEnumerableNull = () => listEmpty.InsertRange(0,null);
-           
+            Action actWithCollectionNull = () => listNull.InsertRange(0, new Collection<object>());
+            Action actWithEnumerableNull = () => listEmpty.InsertRange(0, null);
+
             actWithCollectionNull.Should().Throw<ArgumentNullException>();
             actWithEnumerableNull.Should().Throw<ArgumentNullException>();
         }
@@ -91,11 +92,79 @@ namespace CBP.Extensions.UnitTests
             actWithenumerableNull.Should().Throw<ArgumentNullException>();
         }
 
+        [Fact]
+        public void CollectionInsertRangeShouldAddCollections()
+        {
+            var collection = GetMixedObjectCollection();
+
+            collection.InsertRange(0, collection);
+
+            collection.Count.Should().Be(12);
+        }
+
+        [Fact]
+        public void CollectionListInsertRangeShouldAddList()
+        {
+            var collection = GetMixedObjectList();
+
+            collection.InsertRange(0, collection);
+
+            collection.Count.Should().Be(12);
+        }
+
+        [Fact]
+        public void ObservableCollectionInsertRangeShouldAddCollection()
+        {
+            var collection = GetMixedObjectObservableCollection();
+
+            collection.InsertRange(0, collection);
+
+            collection.Count.Should().Be(12);
+        }
+
+        [Fact]
+        public void ObservableCollectionRemoveRangeShouldRemoveCollection()
+        {
+            var collection = GetMixedObjectCollection();
+
+            var itemToRemove = collection[4];
+
+            collection.RemoveRange(new Collection<object> { itemToRemove });
+
+            collection.Count.Should().Be(5);
+        }
+
         #region Data
 
         Collection<object> GetMixedObjectCollection()
         {
             return new Collection<object>
+            {
+                0,
+                1,
+                2,
+                "string",
+                "value",
+                true
+            };
+        }
+
+        List<object> GetMixedObjectList()
+        {
+            return new List<object>
+            {
+                0,
+                1,
+                2,
+                "string",
+                "value",
+                true
+            };
+        }
+
+        ObservableCollection<object> GetMixedObjectObservableCollection()
+        {
+            return new ObservableCollection<object>
             {
                 0,
                 1,
