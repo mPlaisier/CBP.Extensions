@@ -23,7 +23,7 @@ namespace CBP.Extensions
         /// <returns></returns>
         public static IEnumerable<T> GetValuesExceptUnknown<T>() where T : Enum
         {
-            var values = Enum.GetValues(typeof(T)).Cast<T>().ToList().Where(x => !x.ToString().Equals("Unknown"));
+            var values = Enum.GetValues(typeof(T)).Cast<T>().Where(x => !x.ToString().Equals("Unknown"));
 
             return values;
         }
