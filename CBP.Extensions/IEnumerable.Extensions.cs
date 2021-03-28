@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace CBP.Extensions
 {
     public static class IEnumerableExtensions
     {
+        const string ENUM_NULL_OR_EMPTY_ERROR = "enumerable should not be null or empty.";
+
         /// <summary>
         /// Determines whether the <paramref name="enumerable"/> is null or contains no elements.
         /// </summary>
@@ -20,11 +21,11 @@ namespace CBP.Extensions
 
             /* If this is a list, use the Count property for efficiency. 
              * The Count property is O(1) while IEnumerable.Count() is O(N). */
-            return enumerable is ICollection<T> collection ? collection.Count < 1 : !enumerable.Any();
+            return enumerable is ICollection<T> collection ? collection.Count == 0 : !enumerable.Any();
         }
 
         /// <summary>
-        /// Determines whether the collection is not null and contains elements.
+        /// Determines whether <paramref name="enumerable"/> is not null and contains elements.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="enumerable"></param>
@@ -36,13 +37,13 @@ namespace CBP.Extensions
 
             /* If this is a list, use the Count property for efficiency. 
             * The Count property is O(1) while IEnumerable.Count() is O(N). */
-            return enumerable is ICollection<T> collection ? collection.Count > 0 : enumerable.Any();
+            return enumerable is ICollection<T> collection ? collection.Count != 0 : enumerable.Any();
         }
 
         public static void ForEach<T>(this IEnumerable<T> @enumerable, Action<T> mapFunction)
         {
             if (enumerable.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(enumerable), "enumerable should not be null or empty.");
+                throw new ArgumentNullException(nameof(enumerable), ENUM_NULL_OR_EMPTY_ERROR);
 
             if (enumerable is List<T> collection)
                 collection.ForEach(mapFunction);
@@ -53,78 +54,40 @@ namespace CBP.Extensions
             }
         }
 
+        /// <summary>
+        /// Execute <paramref name="mapFunction"/> for each item of <typeparamref name="S"/> in <paramref name="enumerable"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="S"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="mapFunction"></param>
         public static void ForEachType<T, S>(this IEnumerable<T> @enumerable, Action<S> mapFunction) where S : T
         {
             enumerable.OfType<S>().ForEach(mapFunction);
         }
 
         /// <summary>
-        /// Find the Index of a certain item with a predicate.
+        /// Get count of all elements of <typeparamref name="S"/> in <paramref name="enumerable"/> of <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="predicate"></param>
+        /// <typeparam name="S"></typeparam>
+        /// <param name="enumerable"></param>
         /// <returns></returns>
-        public static int FindIndex<T>(this Collection<T> collection, Func<T, bool> predicate)
+        public static int Count<S, T>(this IEnumerable<T> enumerable) where S : T
         {
-            if (collection.IsNullOrEmpty())
-                return -1;
-
-            var item = collection.FirstOrDefault(predicate);
-            return collection.IndexOf(item);
+            return enumerable.OfType<S>().Count();
         }
 
         /// <summary>
-        /// Adds the elements at index of the collection. 
+        /// Get count with <paramref name="predicate"/> of all elements of <typeparamref name="S"/> in <paramref name="enumerable"/> of <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="index"></param>
+        /// <typeparam name="S"></typeparam>
         /// <param name="enumerable"></param>
-        public static void InsertRange<T>(this Collection<T> collection, int index, IEnumerable<T> enumerable)
+        /// <returns></returns>
+        public static int Count<T, S>(this IEnumerable<T> enumerable, Func<S, bool> predicate)
         {
-            int currentIndex = index;
-            var changedItems = collection is List<T> ? (List<T>)enumerable : new List<T>(enumerable);
-            foreach (var i in changedItems)
-            {
-                collection.Insert(currentIndex, i);
-                currentIndex++;
-            }
-        }
-
-        /// <summary>
-        /// Adds the elements at index of the collection. 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="index"></param>
-        /// <param name="enumerable"></param>
-        public static void InsertRange<T>(this ObservableCollection<T> collection, int index, IEnumerable<T> enumerable)
-        {
-            int currentIndex = index;
-            var changedItems = collection is List<T> ? (List<T>)enumerable : new List<T>(enumerable);
-            foreach (var i in changedItems)
-            {
-                collection.Insert(currentIndex, i);
-                currentIndex++;
-            }
-        }
-
-        /// <summary>
-        /// Removes the first occurence of each item in the collection.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="enumerable"></param>
-        public static void RemoveRange<T>(this Collection<T> collection, IEnumerable<T> enumerable)
-        {
-            if (enumerable.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(enumerable));
-
-            //fix error when enumerable is from the Collection
-            //Error: Collection was modified; enumeration operation may not execute
-            foreach (var item in enumerable.ToList())
-                collection.Remove(item);
+            return enumerable.OfType<S>().Count(predicate);
         }
     }
 }
