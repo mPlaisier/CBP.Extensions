@@ -115,6 +115,26 @@ namespace CBP.Extensions.UnitTests
             countBoolean.Should().Be(1);
         }
 
+        [Fact]
+        public void IEnumerableHasType()
+        {
+            var enumerable = GetMixedObjectEnumerable();
+
+            var hasType = enumerable.Has<object, string>();
+
+            hasType.Should().BeTrue();
+        }
+
+        [Fact]
+        public void IEnumerableHasNotType()
+        {
+            var enumerable = GetMixedObjectEnumerable();
+
+            var hasType = enumerable.Has<object, decimal>();
+
+            hasType.Should().BeFalse();
+        }
+
         #region Data
 
         IEnumerable<object> GetMixedObjectEnumerable()

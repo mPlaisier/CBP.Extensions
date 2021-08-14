@@ -106,5 +106,17 @@ namespace CBP.Extensions
         {
             return enumerable.DefaultIfEmpty(null).FirstOrDefault(predicate);
         }
+
+        /// <summary>
+        /// Check if elements contains at least one element of <typeparamref name="S"/> in <paramref name="enumerable"/> of <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="S"></typeparam>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static bool Has<T, S>(this IEnumerable<T> enumerable) where S : T
+        {
+            return enumerable.OfType<S>().Any();
+        }
     }
 }
