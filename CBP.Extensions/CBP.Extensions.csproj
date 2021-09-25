@@ -3,13 +3,15 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<PackageId>cbp-extensions</PackageId>
-		<PackageVersion>1.8</PackageVersion>
+		<PackageVersion>2.0</PackageVersion>
 		<Authors>Mattias Plaisier</Authors>
 		<Description>C# Extensions</Description>
-		<ReleaseVersion>1.8</ReleaseVersion>
+		<ReleaseVersion>2.0</ReleaseVersion>
 		<RepositoryUrl>https://github.com/mPlaisier/CBP.Extensions.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<Configurations>Release;Debug</Configurations>
+		<PackageProjectUrl>https://github.com/mPlaisier/CBP.Extensions</PackageProjectUrl>
+		<Title>C# Extensions</Title>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<DebugType>

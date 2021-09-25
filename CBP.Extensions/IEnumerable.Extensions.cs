@@ -79,7 +79,7 @@ namespace CBP.Extensions
         /// <typeparam name="S"></typeparam>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        public static int Count<S, T>(this IEnumerable<T> enumerable) where S : T
+        public static int Count<T, S>(this IEnumerable<T> enumerable) where S : T
         {
             return enumerable.OfType<S>().Count();
         }
