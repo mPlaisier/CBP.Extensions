@@ -88,10 +88,10 @@ namespace CBP.Extensions.UnitTests
         {
             var enumerable = GetMixedObjectEnumerable();
 
-            var countInt = enumerable.Count<int, object>();
-            var countString = enumerable.Count<string, object>();
-            var countDecimal = enumerable.Count<decimal, object>();
-            var countBoolean = enumerable.Count<bool, object>();
+            var countInt = enumerable.Count<object, int>();
+            var countString = enumerable.Count<object, string>();
+            var countDecimal = enumerable.Count<object, decimal>();
+            var countBoolean = enumerable.Count<object, bool>();
 
             countInt.Should().Be(3);
             countString.Should().Be(2);
@@ -104,10 +104,10 @@ namespace CBP.Extensions.UnitTests
         {
             var enumerable = GetMixedObjectEnumerable();
 
-            var countInt = enumerable.Count<int, object>();
-            var countString = enumerable.Count<string, object>();
-            var countDecimal = enumerable.Count<decimal, object>();
-            var countBoolean = enumerable.Count<bool, object>();
+            var countInt = enumerable.Count<object, int>();
+            var countString = enumerable.Count<object, string>();
+            var countDecimal = enumerable.Count<object, decimal>();
+            var countBoolean = enumerable.Count<object, bool>();
 
             countInt.Should().Be(3);
             countString.Should().Be(2);
