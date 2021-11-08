@@ -38,5 +38,38 @@ namespace CBP.Extensions.UnitTests
 
             act.Should().Throw<ArgumentNullException>();
         }
+
+        [Theory]
+        [InlineData("abcd", "Abcd")]
+        [InlineData("Abcd", "Abcd")]
+        [InlineData("abcd Abcd", "Abcd Abcd")]
+        [InlineData("Abcd abcd", "Abcd abcd")]
+        [InlineData("abcdefGhijklmno", "AbcdefGhijklmno")]
+        public void FirstCharToUpperShouldCapitalizeFirstChar(string value, string expected)
+        {
+            string result = value.FirstCharToUpper();
+
+            result.Should().Be(expected);
+        }
+
+        [Fact]
+        public void FirstCharToUpperThrowErrorIfStringIsNull()
+        {
+            string value = null;
+
+            Action act = () => value.FirstCharToUpper();
+
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void FirstCharToUpperThrowErrorIfStringIsEmpty()
+        {
+            string value = string.Empty;
+
+            Action act = () => value.FirstCharToUpper();
+
+            act.Should().Throw<ArgumentException>();
+        }
     }
 }
