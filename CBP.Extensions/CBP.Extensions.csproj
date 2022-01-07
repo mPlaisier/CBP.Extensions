@@ -17,4 +17,7 @@
 		<DebugType>
 		</DebugType>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Folder Include="Interfaces\" />
+	</ItemGroup>
 </Project>
