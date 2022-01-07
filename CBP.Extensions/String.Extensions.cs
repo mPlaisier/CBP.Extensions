@@ -21,7 +21,7 @@ namespace CBP.Extensions
             {
                 null => throw new ArgumentNullException(nameof(input)),
                 "" => throw new ArgumentException(STRING_EMPTY_ERROR, nameof(input)),
-                _ => input[0].ToString().ToUpper() + input[1..]
+                _ => input[0].ToString().ToUpperInvariant() + input[1..]
             };
         }
     }
