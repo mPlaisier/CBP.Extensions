@@ -31,7 +31,7 @@ namespace CBP.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static T ThrowIfNull<T>(this T obj)
+        public static T ThrowIfNull<T>(this T obj) where T : class
         {
             if (obj == null)
                 throw new ArgumentNullException(nameof(obj));
