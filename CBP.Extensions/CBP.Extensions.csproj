@@ -6,7 +6,7 @@
 		<PackageVersion>2.1</PackageVersion>
 		<Authors>Mattias Plaisier</Authors>
 		<Description>C# Extensions</Description>
-		<ReleaseVersion>2.1</ReleaseVersion>
+		<ReleaseVersion>2.2</ReleaseVersion>
 		<RepositoryUrl>https://github.com/mPlaisier/CBP.Extensions.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<Configurations>Release;Debug</Configurations>
